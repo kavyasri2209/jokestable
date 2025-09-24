@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jokes Table</title>
+    <style>
+        body {
+            background-image:linear-gradient(to right,#FFFACD ,#FFB6C1)
+           
+        }
+
+        table, th, td {
+             border: 1px solid black;
+             border-collapse: collapse; 
+        }
+
+        table {
+            width: 100%;
+            margin-top: 50px;
+
+        }
+
+        h1 {
+            text-align: center;
+            font-style:normal;
+            color:black;
+            padding: 60px;
+            text-decoration:underline;
+            
+        }
+
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color:#f8aee1;
+        }
+
+        tr {
+            background-color: whitesmoke;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>JOKES BOX</h1>
+    <table id="jokeTable">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Setup</th>
+                <th>Punchline</th>
+            </tr>
+        </thead>
+        <tbody id="jokeBody"></tbody>
+    </table>
+
+    <script>
+        const apiUrl = "https://api.allorigins.win/raw?url=https://official-joke-api.appspot.com/jokes/ten";
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('jokeBody');
+                data.forEach(joke => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${joke.id}</td>
+                        <td>${joke.type}</td>
+                        <td>${joke.setup}</td>
+                        <td>${joke.punchline}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching jokes:', error));
+    </script>
+</body>
+</html>
